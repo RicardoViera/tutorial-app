@@ -23,7 +23,7 @@ export const getTasksByPatient = async (
       `
       select id, title, task_type, status, due_at, completed_at
       from care_plan_tasks
-      where patient_id = $1
+      where patient_id = $1 and status != 'deleted'
       order by due_at asc nulls last
       `,
       [patientId],
@@ -45,7 +45,6 @@ export const updateTask = async (
   try {
     const { taskId } = req.params;
     const { status } = req.body;
-    console.log(req.body, req.params, status, taskId)
 
     const actorId = (req as any).user.sub;
 

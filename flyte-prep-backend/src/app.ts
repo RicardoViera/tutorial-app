@@ -22,7 +22,6 @@ app.get("/health", async (_req, res) => {
       const result = await pool.query("select now()");
       res.json({ ok: true, time: result.rows[0] });
     } catch (err: any) {
-      console.error("DB error:", err);
       res.status(500).json({
         ok: false,
         message: err?.message ?? "DB error",
